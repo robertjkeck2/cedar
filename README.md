@@ -1,5 +1,5 @@
 <div align="center">
-	<img src="cedar.png" width="100" height="100">
+	<img src="assets/img/cedar.png" width="100" height="100">
 	<h1>Cedar</h1>
 	<p>
 		<b>Log personal notes directly from your command line</b>
