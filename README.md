@@ -2,13 +2,13 @@
 	<img src="assets/img/cedar.png" width="100" height="100">
 	<h1>Cedar</h1>
 	<p>
-		<b>Log personal notes directly from your command line</b>
+		<b>A personal log, directly from your command line</b>
 	</p>
 	<br>
 	<br>
 </div>
 
-Cedar is a command line tool that allows you to easily capture personal notes while you're working. Notes captured via the CLI are appended to a daily .txt file that can be stored anywhere. Connect your GitHub account to automatically log your daily .txt files.
+Cedar is a command line tool that allows you to easily capture a personal log while you're working. Logs captured via the CLI are appended to a daily .txt file that can be viewed anytime. Connect your GitHub account to automatically log your daily .txt files.
 
 ## Installation
 
@@ -16,12 +16,17 @@ Download binary: ![cedar](https://github.com/robertjkeck2/cedar)
 
 ## Usage
 
-### Simple note logging
-Cedar allows you to quickly capture notes through the command line. Simply use the CLI to type a note with any desired flags and the note will automatically save to the daily .txt file.
+### Simple personal logging
+Cedar allows you to quickly capture logs through the command line. Simply use the CLI to type a log entry and the entry will automatically save to the daily .txt file.
 
-#### Basic Note
+#### Basic log entry
 ```
-cedar "This is a basic note."
+cedar This is a basic entry. No " or other special characters needed.
+```
+
+#### Read today's log
+```
+cedar
 ```
 
 ### Automatic syncing
