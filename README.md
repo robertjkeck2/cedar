@@ -20,27 +20,32 @@ Download binary: ![cedar](https://github.com/robertjkeck2/cedar)
 Cedar allows you to quickly capture logs through the command line. Simply use the CLI to type a log entry and the entry will automatically save to the daily .txt file.
 
 #### Basic log entry
+Cedar is all about simplicity. Type any log message you'd like after the `cedar` command and it will be logged with the current time.
+
 ```
 cedar This is a basic entry. No " or other special characters needed.
 ```
 
 #### Read today's log
+See the current day's log entries by simply typing the `cedar` command and hitting Enter.
+
 ```
 cedar
 ```
 
+If you need to see previous day's entries, use the synced GitHub repo or your favorite search tool on the `~/.cedar` directory.
+
 ### Automatic syncing
 Daily .txt files are stored in the `~/.cedar` directory by default. Cedar also allows for automatic syncing with a GitHub account so .txt files can be publically accessible. 
 
-#### Setting up GitHub access
+#### Setting up GitHub syncing
+Create a new repository (either private or public will do) on GitHub and copy the .git URL.
+
 ```
-cedar login
+cedar <repo-url>
 ```
 
-#### Setting up GitHub syncing
-```
-cedar sync
-```
+All entries will be committed directly to `master` each time you log with `cedar`.
 
 ## Maintainers
 

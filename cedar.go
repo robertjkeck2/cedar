@@ -6,6 +6,8 @@ import (
 	"fmt"
 	"log"
 	"os"
+	"os/exec"
+	"regexp"
 	"strings"
 	"time"
 )
@@ -15,6 +17,7 @@ const (
 	branchGrowError  = "Unable to grow branch. Try again."
 	cedarDir         = "/.cedar/"
 	dateFormat       = "01-02-2006"
+	githubError      = "Unable to connect GitHub. Try again."
 	leafGrowError    = "Unable to grow leaf. Try again."
 	timeFormat       = "15:04:05"
 )
@@ -55,7 +58,15 @@ func main() {
 	case 0:
 		branch.Climb()
 	default:
-		leaf.Grow(branch, currentTime, args)
+		matched, err := regexp.Match(`^https:\/\/github.com\/.+.git`, []byte(args[0]))
+		if err != nil {
+			log.Fatal(githubError)
+		}
+		if matched && len(args) == 1 {
+			connectGitHub(args[0], home)
+		} else {
+			leaf.Grow(branch, currentTime, args)
+		}
 	}
 }
 
@@ -113,6 +124,30 @@ func (l *Leaf) Grow(b Branch, time string, args []string) {
 	defer f.Close()
 	if _, err := f.WriteString(l.Time + " -> " + l.Text + "\n"); err != nil {
 		log.Fatal(leafGrowError)
+	}
+}
+
+// Set up GitHub repo for cedar log syncing
+func connectGitHub(repo string, homeDir string) {
+	err := exec.Command("git", "-C", homeDir+cedarDir, "init", ".").Run()
+	if err != nil {
+		log.Fatal(githubError)
+	}
+	err = exec.Command("git", "-C", homeDir+cedarDir, "remote", "add", "origin", repo).Run()
+	if err != nil {
+		log.Fatal(githubError)
+	}
+	err = exec.Command("git", "-C", homeDir+cedarDir, "add", ".").Run()
+	if err != nil {
+		log.Fatal(githubError)
+	}
+	err = exec.Command("git", "-C", homeDir+cedarDir, "commit", "-m", "initial cedar repo setup").Run()
+	if err != nil {
+		log.Fatal(githubError)
+	}
+	err = exec.Command("git", "-C", homeDir+cedarDir, "push", "origin", "master").Run()
+	if err != nil {
+		log.Fatal(githubError)
 	}
 }
 
