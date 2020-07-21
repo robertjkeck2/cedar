@@ -66,6 +66,7 @@ func main() {
 			connectGitHub(args[0], home)
 		} else {
 			leaf.Grow(branch, currentTime, args)
+			syncGitHub(branch, home)
 		}
 	}
 }
@@ -142,6 +143,26 @@ func connectGitHub(repo string, homeDir string) {
 		log.Fatal(githubError)
 	}
 	err = exec.Command("git", "-C", homeDir+cedarDir, "commit", "-m", "initial cedar repo setup").Run()
+	if err != nil {
+		log.Fatal(githubError)
+	}
+	err = exec.Command("git", "-C", homeDir+cedarDir, "push", "origin", "master").Run()
+	if err != nil {
+		log.Fatal(githubError)
+	}
+}
+
+// Sync the current cedar logs to GitHub
+func syncGitHub(b Branch, homeDir string) {
+	err := exec.Command("git", "-C", homeDir+cedarDir, "add", ".").Run()
+	if err != nil {
+		log.Fatal(githubError)
+	}
+	err = exec.Command("git", "-C", homeDir+cedarDir, "commit", "-m", "new log entry for "+b.Date).Run()
+	if err != nil {
+		log.Fatal(githubError)
+	}
+	err = exec.Command("git", "-C", homeDir+cedarDir, "pull", "origin", "master").Run()
 	if err != nil {
 		log.Fatal(githubError)
 	}
