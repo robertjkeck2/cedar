@@ -12,7 +12,7 @@ Cedar is a command line tool that allows you to easily capture a personal log wh
 
 ## Installation
 
-Download binary: ![cedar](https://github.com/robertjkeck2/cedar/releases/download/v1.0/cedar)
+Download binary: [cedar](https://github.com/robertjkeck2/cedar/releases/download/v1.0/cedar)
 
 ## Usage
 
